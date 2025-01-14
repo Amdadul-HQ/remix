@@ -1,12 +1,18 @@
-import './tailwind.css'
 import {
-  // Form,
+  Form,
   Links,
   Meta,
-  Outlet,
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import type { LinksFunction } from "@remix-run/node";
+// existing imports
+
+import appStylesHref from "./app.css?url";
+
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: appStylesHref },
+];
 
 export default function App() {
   return (
@@ -18,19 +24,18 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet/>
-        {/* <div id="sidebar">
-          <h1 className="text-red-200 font-semibold">Remix Contacts</h1>
+        <div id="sidebar">
+          <h1>Remix Contacts</h1>
           <div>
             <Form id="search-form" role="search">
               <input
-                id="q"
                 aria-label="Search contacts"
+                id="q"
+                name="q"
                 placeholder="Search"
                 type="search"
-                name="q"
               />
-              <div id="search-spinner" aria-hidden hidden={true} />
+              <div aria-hidden hidden={true} id="search-spinner" />
             </Form>
             <Form method="post">
               <button type="submit">New</button>
@@ -46,7 +51,7 @@ export default function App() {
               </li>
             </ul>
           </nav>
-        </div> */}
+        </div>
 
         <ScrollRestoration />
         <Scripts />
