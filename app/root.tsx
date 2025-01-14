@@ -1,3 +1,4 @@
+import './tailwind.css'
 import {
   Form,
   Links,
@@ -17,7 +18,7 @@ export default function App() {
       </head>
       <body>
         <div id="sidebar">
-          <h1>Remix Contacts</h1>
+          <h1 className="text-red-200 font-semibold">Remix Contacts</h1>
           <div>
             <Form id="search-form" role="search">
               <input
