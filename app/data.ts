@@ -73,8 +73,8 @@ export async function getContacts(query?: string | null) {
   return contacts.sort(sortBy("last", "createdAt"));
 }
 
-export async function createEmptyContact() {
-  const contact = await fakeContacts.create({});
+export async function createEmptyContact(user: ContactMutation) {
+  const contact = await fakeContacts.create(user);
   return contact;
 }
 

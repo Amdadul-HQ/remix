@@ -1,10 +1,21 @@
 import { Form, json, useLoaderData } from "@remix-run/react";
-import { ContactRecord, getContact } from "~/data";
+import { ContactRecord, getContact, updateContact } from "~/data";
+import type { ActionFunctionArgs } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
+import invariant from "tiny-invariant";
 
 export const loader = async ({params}: {params:{contactId :string}}) => {
     const contact = await getContact(params.contactId);
     return json({contact});
 }
+
+export const action = async ({ params, request }: ActionFunctionArgs) => {
+  invariant(params.contactId, "Missing contactId param");
+  const formData = await request.formData();
+  const updates = Object.fromEntries(formData);
+  await updateContact(params.contactId, updates);
+  return redirect(`/contacts/${params.contactId}`);
+};
 
 const ContactUpdate = () => {
   const { contact } : {contact:ContactRecord} = useLoaderData();
