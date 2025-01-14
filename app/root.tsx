@@ -1,8 +1,9 @@
 import './tailwind.css'
 import {
-  Form,
+  // Form,
   Links,
   Meta,
+  Outlet,
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
@@ -17,7 +18,8 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <div id="sidebar">
+        <Outlet/>
+        {/* <div id="sidebar">
           <h1 className="text-red-200 font-semibold">Remix Contacts</h1>
           <div>
             <Form id="search-form" role="search">
@@ -44,7 +46,7 @@ export default function App() {
               </li>
             </ul>
           </nav>
-        </div>
+        </div> */}
 
         <ScrollRestoration />
         <Scripts />
