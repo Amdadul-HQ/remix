@@ -10,6 +10,9 @@ export const loader = async ({params}: {params:{contactId:string}}) => {
 
 const Contact = () => {
      const { contact } : {contact:ContactRecord} = useLoaderData();
+     if (!contact) {
+       throw new Response("Not Found", { status: 404 });
+     }
     return (
           <div id="contact">
       <div>

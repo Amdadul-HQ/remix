@@ -24,6 +24,7 @@ export const loader = async () => {
   return json({contacts});
 }
 
+
 export default function App() {
   const { contacts } : {contacts: ContactRecord[]} = useLoaderData();
 
@@ -49,9 +50,11 @@ export default function App() {
               />
               <div aria-hidden hidden={true} id="search-spinner" />
             </Form>
-            <Form method="post">
-              <button type="submit">New</button>
-            </Form>
+            {/* <Form method="post"> */}
+            <Link to="/contacts/create">
+              <button type="button">New</button>
+            </Link>
+            {/* </Form> */}
           </div>
           <nav>
             {contacts.length ? (

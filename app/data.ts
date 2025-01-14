@@ -95,7 +95,7 @@ export async function deleteContact(id: string) {
   fakeContacts.destroy(id);
 }
 
-[
+const manush = [
   {
     avatar:
       "https://sessionize.com/image/124e-400o400o2-wHVdAuNaxi8KJrgtN3ZKci.jpg",
@@ -308,7 +308,9 @@ export async function deleteContact(id: string) {
     last: "Jensen",
     twitter: "@jenseng",
   },
-].forEach((contact) => {
+];
+
+manush.forEach((contact) => {
   fakeContacts.create({
     ...contact,
     id: `${contact.first.toLowerCase()}-${contact.last.toLocaleLowerCase()}`,
