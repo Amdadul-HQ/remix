@@ -11,7 +11,7 @@ import {
   useLoaderData,
   useNavigation,
 } from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 // existing imports
 
 import appStylesHref from "./app.css?url";
@@ -21,14 +21,16 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: appStylesHref },
 ];
 
-export const loader = async () => {
-  const contacts = await getContacts();
-  return json({contacts});
+export const loader = async ({request}:LoaderFunctionArgs) => {
+  const url = new URL(request.url);
+  const q = url.searchParams.get("searchTerm");
+  const contacts = await getContacts(q);
+  return json({contacts,q});
 }
 
 
 export default function App() {
-  const { contacts } : {contacts: ContactRecord[]} = useLoaderData();
+  const { contacts,q } : {contacts: ContactRecord[];q:string} = useLoaderData();
 const navigation = useNavigation();
   return (
     <html lang="en">
@@ -45,8 +47,9 @@ const navigation = useNavigation();
             <Form id="search-form" role="search">
               <input
                 aria-label="Search contacts"
-                id="q"
-                name="q"
+                id="searchTerm"
+                name="searchTerm"
+                defaultValue={q || ""}
                 placeholder="Search"
                 type="search"
               />

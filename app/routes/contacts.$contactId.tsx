@@ -64,7 +64,7 @@ const Contact = () => {
               );
               if (!response) {
                 event.preventDefault();
-              }
+              }/id/
             }}
           >
             <button type="submit">Delete</button>

@@ -1,4 +1,4 @@
-import { Form, json, useLoaderData } from "@remix-run/react";
+import { Form, json, useLoaderData, useNavigate } from "@remix-run/react";
 import { ContactRecord, getContact, updateContact } from "~/data";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
@@ -19,7 +19,7 @@ export const action = async ({ params, request }: ActionFunctionArgs) => {
 
 const ContactUpdate = () => {
   const { contact } : {contact:ContactRecord} = useLoaderData();
-
+  const navigate = useNavigate();
   return (
     <Form key={contact.id} id="contact-form" method="post">
       <p>
@@ -64,7 +64,9 @@ const ContactUpdate = () => {
       </label>
       <p>
         <button type="submit">Save</button>
-        <button type="button">Cancel</button>
+        <button onClick={() => navigate(-1)} type="button">
+          Cancel
+        </button>
       </p>
     </Form>
   );
