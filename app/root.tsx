@@ -10,12 +10,14 @@ import {
   ScrollRestoration,
   useLoaderData,
   useNavigation,
+  useSubmit,
 } from "@remix-run/react";
 import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 // existing imports
 
 import appStylesHref from "./app.css?url";
 import { ContactRecord, getContacts } from "./data";
+import { useEffect } from "react";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: appStylesHref },
@@ -31,7 +33,16 @@ export const loader = async ({request}:LoaderFunctionArgs) => {
 
 export default function App() {
   const { contacts,q } : {contacts: ContactRecord[];q:string} = useLoaderData();
-const navigation = useNavigation();
+  const navigation = useNavigation(); 
+  const submit = useSubmit();
+
+  useEffect(() => {
+    const searchField = document.getElementById("q");
+    if (searchField instanceof HTMLInputElement) {
+      searchField.value = q || "";
+    }
+  }, [q]);
+
   return (
     <html lang="en">
       <head>
@@ -44,7 +55,11 @@ const navigation = useNavigation();
         <div id="sidebar">
           <h1>Remix Contacts</h1>
           <div>
-            <Form id="search-form" role="search">
+            <Form
+              onChange={(event) => submit(event.currentTarget)}
+              id="search-form"
+              role="search"
+            >
               <input
                 aria-label="Search contacts"
                 id="searchTerm"
