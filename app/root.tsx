@@ -36,8 +36,12 @@ export default function App() {
   const navigation = useNavigation(); 
   const submit = useSubmit();
 
+   const searching =
+     navigation.location &&
+     new URLSearchParams(navigation.location.search).has("searchTerm");
+
   useEffect(() => {
-    const searchField = document.getElementById("q");
+    const searchField = document.getElementById("searchTerm");
     if (searchField instanceof HTMLInputElement) {
       searchField.value = q || "";
     }
@@ -63,12 +67,13 @@ export default function App() {
               <input
                 aria-label="Search contacts"
                 id="searchTerm"
+                className={searching ? "loading" : ""}
                 name="searchTerm"
                 defaultValue={q || ""}
                 placeholder="Search"
                 type="search"
               />
-              <div aria-hidden hidden={true} id="search-spinner" />
+              <div aria-hidden hidden={!searching} id="search-spinner" />
             </Form>
             {/* <Form method="post"> */}
             <Link to="/contacts/create">
