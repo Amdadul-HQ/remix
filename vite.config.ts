@@ -6,6 +6,11 @@ export default defineConfig({
   plugins: [
     remix({
       ignoredRouteFiles: ["**/*.css"],
+      // routes(defineRoutes) {
+      //   return defineRoutes((route) => {
+      //     route("")
+      //   })
+      // },
     }),
     tsconfigPaths(),
   ],

@@ -60,11 +60,11 @@ export default function App() {
           <h1>Remix Contacts</h1>
           <div>
             <Form
-              onChange={(event) =>{ 
-              const isFirstSearch = q === null;
-              submit(event.currentTarget, {
-                replace: !isFirstSearch,
-              });
+              onChange={(event) => {
+                const isFirstSearch = q === null;
+                submit(event.currentTarget, {
+                  replace: !isFirstSearch,
+                });
               }}
               id="search-form"
               role="search"
@@ -80,11 +80,11 @@ export default function App() {
               />
               <div aria-hidden hidden={!searching} id="search-spinner" />
             </Form>
-            {/* <Form method="post"> */}
-            <Link to="/contacts/create">
-              <button type="button">New</button>
-            </Link>
-            {/* </Form> */}
+            <Form action="contacts/create">
+              {/* <Link to="/contacts/create"> */}
+              <button type="submit">New</button>
+              {/* </Link> */}
+            </Form>
           </div>
           <nav>
             {contacts.length ? (
